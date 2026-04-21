@@ -25,6 +25,8 @@ export interface SteelGrade {
   standard_steel: string
   internal_code: string
   description: string | null
+  archived_at: string | null
+  archived_by: string | null
   created_at: string
   updated_at: string
 }
