@@ -12,6 +12,18 @@ export type OrderStatus =
   | 'completed'
   | 'cancelled'
 
+export type PlanningMode = 'balanced' | 'delivery-first' | 'grade-batch'
+
+export type PlanningRunStatus =
+  | 'draft'
+  | 'waiting'
+  | 'executing'
+  | 'processing'
+  | 'standby'
+  | 'completed'
+  | 'failed'
+  | 'cancelled'
+
 export interface Profile {
   id: string
   display_name: string | null
@@ -64,4 +76,29 @@ export interface OrderSelection {
   user_id: string
   order_id: string
   selected_at: string
+}
+
+export interface PlanningRun {
+  id: string
+  user_id: string
+  status: PlanningRunStatus
+  mode: PlanningMode
+  preference_enabled: boolean
+  test_mode_enabled: boolean
+  short_enabled: boolean
+  cross_group_enabled: boolean
+  selected_order_count: number
+  total_weight_tons: number
+  unique_grade_count: number
+  nearest_delivery_date: string | null
+  created_at: string
+  updated_at: string
+  last_transition_at: string | null
+}
+
+export interface PlanningRunOrder {
+  id: string
+  planning_run_id: string
+  order_id: string
+  created_at: string
 }

@@ -1,11 +1,13 @@
 'use client'
 
 import { useTransition } from 'react'
+
 import { Button } from '@/components/ui/button'
+
 import {
   archiveSteelGrade,
-  restoreSteelGrade,
   permanentlyDeleteSteelGrade,
+  restoreSteelGrade,
 } from './actions'
 
 interface Props {
@@ -14,44 +16,49 @@ interface Props {
   isArchived: boolean
 }
 
-// 根据当前视图显示不同操作:
-// - 活跃视图: 归档按钮 (软删)
-// - 归档视图: 恢复 + 永久删除 (硬删, 仅无引用时可用)
 export function DeleteGradeButton({ gradeId, gradeName, isArchived }: Props) {
   const [isPending, startTransition] = useTransition()
 
   function handleArchive() {
-    if (
-      !confirm(
-        `确定归档钢种 "${gradeName}" 吗?\n\n归档后此钢种不会出现在下拉列表中, 但历史订单仍然保留引用。`
-      )
-    ) {
+    const confirmed = confirm(
+      `确认归档钢种“${gradeName}”吗？\n\n归档后它会从在用列表中移除，但不会影响已经引用该钢种的订单数据。`
+    )
+
+    if (!confirmed) {
       return
     }
+
     startTransition(async () => {
       const result = await archiveSteelGrade(gradeId)
-      if (result?.error) alert(result.error)
+      if ('error' in result) {
+        alert(result.error)
+      }
     })
   }
 
   function handleRestore() {
     startTransition(async () => {
       const result = await restoreSteelGrade(gradeId)
-      if (result?.error) alert(result.error)
+      if ('error' in result) {
+        alert(result.error)
+      }
     })
   }
 
   function handlePermanentDelete() {
-    if (
-      !confirm(
-        `⚠️ 永久删除钢种 "${gradeName}"?\n\n此操作不可恢复。如果该钢种被任何订单引用, 删除将失败。`
-      )
-    ) {
+    const confirmed = confirm(
+      `确认永久删除钢种“${gradeName}”吗？\n\n这个操作不可恢复。如果该钢种仍被订单引用，系统会阻止删除。`
+    )
+
+    if (!confirmed) {
       return
     }
+
     startTransition(async () => {
       const result = await permanentlyDeleteSteelGrade(gradeId)
-      if (result?.error) alert(result.error)
+      if ('error' in result) {
+        alert(result.error)
+      }
     })
   }
 

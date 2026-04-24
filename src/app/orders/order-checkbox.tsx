@@ -1,31 +1,48 @@
 'use client'
 
-import { useTransition } from 'react'
-import { toggleOrderSelection } from './actions'
+import { useEffect, useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
+
+import { setOrderSelection } from './actions'
 
 interface OrderCheckboxProps {
   orderId: string
   checked: boolean
 }
 
-// 单行选中的 checkbox
-// useTransition 让 UI 在 Server Action 执行时保持响应
 export function OrderCheckbox({ orderId, checked }: OrderCheckboxProps) {
+  const router = useRouter()
   const [isPending, startTransition] = useTransition()
+  const [localChecked, setLocalChecked] = useState(checked)
+
+  useEffect(() => {
+    setLocalChecked(checked)
+  }, [checked])
 
   function handleChange() {
+    const nextChecked = !localChecked
+
     startTransition(async () => {
-      await toggleOrderSelection(orderId)
+      setLocalChecked(nextChecked)
+
+      const result = await setOrderSelection(orderId, nextChecked)
+
+      if ('error' in result) {
+        setLocalChecked(checked)
+        return
+      }
+
+      router.refresh()
     })
   }
 
   return (
     <input
       type="checkbox"
-      checked={checked}
-      disabled={isPending}
+      checked={localChecked}
+      aria-busy={isPending}
       onChange={handleChange}
-      className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 disabled:opacity-50 cursor-pointer"
+      className="h-4 w-4 cursor-pointer rounded border-gray-300 text-blue-600 focus:ring-blue-500"
     />
   )
 }

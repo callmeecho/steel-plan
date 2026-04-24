@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, forwardRef } from 'react'
+﻿import { ButtonHTMLAttributes, forwardRef } from 'react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
@@ -6,17 +6,31 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean
 }
 
-// 通用按钮组件，包装 HTML button，统一样式和行为
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = 'primary', size = 'md', loading = false, disabled, className = '', children, ...props }, ref) => {
+  (
+    {
+      variant = 'primary',
+      size = 'md',
+      loading = false,
+      disabled,
+      className = '',
+      children,
+      ...props
+    },
+    ref
+  ) => {
     const base =
       'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
 
     const variants = {
-      primary: 'bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500',
-      secondary: 'bg-gray-100 text-gray-900 hover:bg-gray-200 focus-visible:ring-gray-400',
-      ghost: 'bg-transparent text-gray-700 hover:bg-gray-100 focus-visible:ring-gray-400',
-      danger: 'bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500',
+      primary:
+        'bg-blue-600 text-white hover:bg-blue-700 focus-visible:ring-blue-500',
+      secondary:
+        'bg-gray-100 text-gray-900 hover:bg-gray-200 focus-visible:ring-gray-400',
+      ghost:
+        'bg-transparent text-gray-700 hover:bg-gray-100 focus-visible:ring-gray-400',
+      danger:
+        'bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500',
     }
 
     const sizes = {
@@ -32,7 +46,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
         {...props}
       >
-        {loading ? '加载中...' : children}
+        {loading ? '处理中...' : children}
       </button>
     )
   }

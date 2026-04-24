@@ -1,10 +1,12 @@
 'use client'
 
 import { useState } from 'react'
+
 import { Button } from '@/components/ui/button'
 import type { SteelGrade } from '@/lib/database.types'
-import { GradeFormDialog } from './grade-form-dialog'
+
 import { DeleteGradeButton } from './delete-grade-button'
+import { GradeFormDialog } from './grade-form-dialog'
 
 interface Props {
   steelGrades: SteelGrade[]
@@ -15,7 +17,6 @@ interface Props {
 export function SteelGradesTable({ steelGrades, isAdmin, view }: Props) {
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editingGrade, setEditingGrade] = useState<SteelGrade | null>(null)
-
   const isArchivedView = view === 'archived'
 
   function openCreateDialog() {
@@ -36,24 +37,24 @@ export function SteelGradesTable({ steelGrades, isAdmin, view }: Props) {
         </div>
       )}
 
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-gray-200 bg-white">
         <table className="min-w-full divide-y divide-gray-200 text-sm">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                国标钢种
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                标准钢种
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                内部代码
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
+                内部编码
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                 描述
               </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500">
                 {isArchivedView ? '归档时间' : '创建时间'}
               </th>
               {isAdmin && (
-                <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-4 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500">
                   操作
                 </th>
               )}
@@ -66,24 +67,24 @@ export function SteelGradesTable({ steelGrades, isAdmin, view }: Props) {
                   colSpan={isAdmin ? 5 : 4}
                   className="px-6 py-12 text-center text-gray-500"
                 >
-                  {isArchivedView ? '暂无已归档钢种' : '暂无钢种数据'}
+                  {isArchivedView ? '当前没有归档钢种。' : '当前没有在用钢种。'}
                 </td>
               </tr>
             ) : (
-              steelGrades.map((g) => (
-                <tr key={g.id} className="hover:bg-gray-50">
+              steelGrades.map((grade) => (
+                <tr key={grade.id} className="hover:bg-gray-50">
                   <td className="px-4 py-3 font-medium text-gray-900">
-                    {g.standard_steel}
+                    {grade.standard_steel}
                   </td>
-                  <td className="px-4 py-3 text-gray-600 font-mono">
-                    {g.internal_code}
+                  <td className="px-4 py-3 font-mono text-gray-600">
+                    {grade.internal_code}
                   </td>
-                  <td className="px-4 py-3 text-gray-600 max-w-md truncate">
-                    {g.description || '—'}
+                  <td className="max-w-md truncate px-4 py-3 text-gray-600">
+                    {grade.description || '-'}
                   </td>
                   <td className="px-4 py-3 text-gray-500">
                     {new Date(
-                      (isArchivedView ? g.archived_at : g.created_at) || ''
+                      (isArchivedView ? grade.archived_at : grade.created_at) || ''
                     ).toLocaleDateString('zh-CN')}
                   </td>
                   {isAdmin && (
@@ -93,14 +94,14 @@ export function SteelGradesTable({ steelGrades, isAdmin, view }: Props) {
                           <Button
                             size="sm"
                             variant="ghost"
-                            onClick={() => openEditDialog(g)}
+                            onClick={() => openEditDialog(grade)}
                           >
                             编辑
                           </Button>
                         )}
                         <DeleteGradeButton
-                          gradeId={g.id}
-                          gradeName={g.standard_steel}
+                          gradeId={grade.id}
+                          gradeName={grade.standard_steel}
                           isArchived={isArchivedView}
                         />
                       </div>

@@ -2,8 +2,10 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+
 import { login } from './actions'
 
 export default function LoginPage() {
@@ -25,10 +27,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+    <div className="rounded-lg border border-gray-200 bg-white p-8 shadow-sm">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900">登录</h1>
-        <p className="mt-1 text-sm text-gray-600">使用账号访问订单管理系统</p>
+        <p className="mt-1 text-sm text-gray-600">使用你的账号进入系统。</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -50,7 +52,7 @@ export default function LoginPage() {
         />
 
         {error && (
-          <div className="rounded-md bg-red-50 border border-red-200 px-3 py-2 text-sm text-red-700">
+          <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
             {error}
           </div>
         )}
@@ -62,7 +64,7 @@ export default function LoginPage() {
 
       <p className="mt-6 text-center text-sm text-gray-600">
         还没有账号？{' '}
-        <Link href="/signup" className="text-blue-600 hover:text-blue-700 font-medium">
+        <Link href="/signup" className="font-medium text-blue-600 hover:text-blue-700">
           去注册
         </Link>
       </p>

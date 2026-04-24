@@ -1,7 +1,10 @@
 'use client'
 
+import Link from 'next/link'
 import { useTransition } from 'react'
+
 import { Button } from '@/components/ui/button'
+
 import { clearAllSelections, selectManyOrders } from './actions'
 
 interface SelectionPanelProps {
@@ -11,8 +14,6 @@ interface SelectionPanelProps {
   allFilteredOrderIds: string[]
 }
 
-// 已选订单面板
-// 显示选中数量/总重量 + 清空按钮 + 全选本页/全选全部按钮
 export function SelectionPanel({
   selectedCount,
   selectedTotalWeight,
@@ -34,28 +35,39 @@ export function SelectionPanel({
   }
 
   function handleClear() {
-    if (!confirm('确定清空所有选中的订单吗?')) return
+    const confirmed = confirm('确认要清空当前已选订单吗？')
+    if (!confirmed) {
+      return
+    }
+
     startTransition(async () => {
       await clearAllSelections()
     })
   }
 
   return (
-    <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 mb-6 flex items-center justify-between flex-wrap gap-3">
+    <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3">
       <div className="text-sm text-gray-700">
-        已选 <span className="font-bold text-blue-700">{selectedCount}</span> 条订单
+        已选择 <span className="font-bold text-blue-700">{selectedCount}</span> 条订单
         <span className="ml-4 text-gray-500">
-          总重量 <span className="font-bold text-gray-800">{selectedTotalWeight.toFixed(2)}</span> t
+          总重量{' '}
+          <span className="font-bold text-gray-800">
+            {selectedTotalWeight.toFixed(2)}
+          </span>{' '}
+          t
         </span>
       </div>
       <div className="flex items-center gap-2">
+        <Link href="/planning">
+          <Button size="sm">进入任务准备</Button>
+        </Link>
         <Button
           size="sm"
           variant="secondary"
           onClick={handleSelectCurrentPage}
           disabled={isPending || currentPageOrderIds.length === 0}
         >
-          选中本页
+          选择本页
         </Button>
         <Button
           size="sm"
@@ -63,7 +75,7 @@ export function SelectionPanel({
           onClick={handleSelectAll}
           disabled={isPending || allFilteredOrderIds.length === 0}
         >
-          全选 ({allFilteredOrderIds.length})
+          全选筛选结果 ({allFilteredOrderIds.length})
         </Button>
         <Button
           size="sm"
@@ -71,7 +83,7 @@ export function SelectionPanel({
           onClick={handleClear}
           disabled={isPending || selectedCount === 0}
         >
-          清空
+          清空已选
         </Button>
       </div>
     </div>

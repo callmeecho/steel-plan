@@ -1,11 +1,12 @@
-import { createClient } from '@/lib/supabase/server'
+﻿import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import Link from 'next/link'
+
 import { Button } from '@/components/ui/button'
+import { createClient } from '@/lib/supabase/server'
+
 import { logout } from '../actions'
 import { SteelGradesTable } from './steel-grades-table'
 
-// 禁用缓存, 保证 CRUD 后立刻反映最新数据
 export const dynamic = 'force-dynamic'
 
 type SearchParams = Promise<{ view?: string }>
@@ -22,6 +23,7 @@ export default async function SteelGradesPage({
   const {
     data: { user },
   } = await supabase.auth.getUser()
+
   if (!user) {
     redirect('/login')
   }
@@ -34,38 +36,44 @@ export default async function SteelGradesPage({
 
   const isAdmin = profile?.role === 'admin'
 
-  // 查所有钢种 + 关联订单数 (用聚合查询)
-  // 注意: RLS 策略允许所有已登录用户读取
-let query = supabase.from('steel_grades').select('*')
-if (view === 'archived') {
-  query = query.not('archived_at', 'is', null)
-} else {
-  query = query.is('archived_at', null)
-}
-const { data: steelGrades, error } = await query.order('standard_steel', {
-  ascending: true,
-})
+  let query = supabase.from('steel_grades').select('*')
+  if (view === 'archived') {
+    query = query.not('archived_at', 'is', null)
+  } else {
+    query = query.is('archived_at', null)
+  }
+
+  const { data: steelGrades, error } = await query.order('standard_steel', {
+    ascending: true,
+  })
+
   if (error) {
     return (
       <div className="p-8">
-        <p className="text-red-600">加载钢种失败: {error.message}</p>
+        <p className="text-red-600">读取钢种数据失败：{error.message}</p>
       </div>
     )
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white border-b border-gray-200 px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+      <header className="border-b border-gray-200 bg-white px-6 py-4">
+        <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-6">
             <Link href="/" className="text-xl font-bold text-gray-900">
-              Steel Plan
+              中板组坯决策平台
             </Link>
             <nav className="flex items-center gap-4 text-sm">
               <Link href="/orders" className="text-gray-600 hover:text-gray-900">
-                订单查询
+                订单管理
               </Link>
-              <Link href="/steel-grades" className="text-blue-600 font-medium">
+              <Link href="/parameters" className="text-gray-600 hover:text-gray-900">
+                参数设置
+              </Link>
+              <Link href="/planning" className="text-gray-600 hover:text-gray-900">
+                任务准备
+              </Link>
+              <Link href="/steel-grades" className="font-medium text-blue-600">
                 钢种管理
               </Link>
               <Link href="/dashboard" className="text-gray-600 hover:text-gray-900">
@@ -82,55 +90,58 @@ const { data: steelGrades, error } = await query.order('standard_steel', {
             </span>
             <form action={logout}>
               <Button variant="ghost" size="sm" type="submit">
-                登出
+                退出登录
               </Button>
             </form>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-8">
-<div className="flex items-center justify-between mb-6">
-  <div>
-    <h1 className="text-2xl font-bold text-gray-900">钢种管理</h1>
-    <p className="mt-1 text-sm text-gray-600">
-      共 {steelGrades?.length || 0} 个
-      {view === 'archived' ? '已归档钢种' : '活跃钢种'}
-      {!isAdmin && (
-        <span className="ml-2 text-amber-600">· 只读模式</span>
-      )}
-    </p>
-  </div>
-  <div className="flex gap-2">
-    <Link
-      href="/steel-grades"
-      className={`px-3 py-1.5 rounded-md text-sm font-medium transition ${
-        view === 'active'
-          ? 'bg-blue-600 text-white'
-          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-      }`}
-    >
-      活跃
-    </Link>
-    <Link
-      href="/steel-grades?view=archived"
-      className={`px-3 py-1.5 rounded-md text-sm font-medium transition ${
-        view === 'archived'
-          ? 'bg-blue-600 text-white'
-          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-      }`}
-    >
-      已归档
-    </Link>
-  </div>
-</div>
+      <main className="mx-auto max-w-7xl px-6 py-8">
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">钢种管理</h1>
+            <p className="mt-1 text-sm text-gray-600">
+              当前显示 {steelGrades?.length || 0} 条
+              {view === 'archived' ? '归档' : '在用'}钢种记录。
+              {!isAdmin && (
+                <span className="ml-2 text-amber-600">
+                  当前账号不是管理员，仅可查看。
+                </span>
+              )}
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <Link
+              href="/steel-grades"
+              className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${
+                view === 'active'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              在用列表
+            </Link>
+            <Link
+              href="/steel-grades?view=archived"
+              className={`rounded-md px-3 py-1.5 text-sm font-medium transition ${
+                view === 'archived'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              归档列表
+            </Link>
+          </div>
+        </div>
 
-<SteelGradesTable
-  steelGrades={steelGrades || []}
-  isAdmin={isAdmin}
-  view={view}
-/>
+        <SteelGradesTable
+          steelGrades={steelGrades || []}
+          isAdmin={isAdmin}
+          view={view}
+        />
       </main>
     </div>
   )
 }
+
