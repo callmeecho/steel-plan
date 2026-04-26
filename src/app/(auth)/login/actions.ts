@@ -7,6 +7,7 @@ import { revalidatePath } from 'next/cache'
 export async function login(formData: FormData) {
   const email = formData.get('email') as string
   const password = formData.get('password') as string
+  const next = formData.get('next') as string | null
 
   if (!email || !password) {
     return { error: '邮箱和密码必填' }
@@ -25,5 +26,5 @@ export async function login(formData: FormData) {
 
   // 让 / 路由下的页面重新拉数据（因为登录状态变了）
   revalidatePath('/', 'layout')
-  redirect('/')
+  redirect(next && next.startsWith('/') ? next : '/v2/orders')
 }
