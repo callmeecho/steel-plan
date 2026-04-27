@@ -17,7 +17,7 @@ export default async function ComparePage({
   params: Promise<{ taskId: string }>
 }) {
   const { taskId } = await params
-  const snapshot = await loadCurrentPlanSnapshot()
+  const snapshot = await loadCurrentPlanSnapshot(taskId)
   const taskSnapshot = taskId === 'current' ? null : await getTaskSnapshot(taskId)
   const plan = snapshot?.plan ?? buildMockPlan()
 

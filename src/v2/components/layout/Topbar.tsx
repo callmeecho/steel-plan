@@ -13,13 +13,9 @@ export function Topbar({ crumb, sub, breadcrumb, title, description }: TopbarPro
         <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
           <div>
             <p className="text-sm text-ink-tertiary">{breadcrumb || crumb}</p>
-            {title ? (
-              <h1 className="mt-3 text-3xl font-semibold tracking-tight text-ink">{title}</h1>
-            ) : null}
+            {title ? <h1 className="mt-3 text-3xl font-semibold tracking-tight text-ink">{title}</h1> : null}
             {description ? (
-              <p className="mt-3 max-w-3xl text-sm leading-7 text-ink-secondary">
-                {description}
-              </p>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-ink-secondary">{description}</p>
             ) : null}
           </div>
         </div>
@@ -40,9 +36,7 @@ export function Topbar({ crumb, sub, breadcrumb, title, description }: TopbarPro
           </>
         ) : null}
       </div>
-      <div className="ml-auto">
-        <span className="font-mono text-ink-tertiary">2026-04-26 09:12</span>
-      </div>
     </header>
   )
 }
+

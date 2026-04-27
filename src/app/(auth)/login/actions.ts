@@ -26,5 +26,5 @@ export async function login(formData: FormData) {
 
   // 让 / 路由下的页面重新拉数据（因为登录状态变了）
   revalidatePath('/', 'layout')
-  redirect(next && next.startsWith('/') ? next : '/v2/orders')
+  redirect(next && next.startsWith('/') ? next : '/orders')
 }

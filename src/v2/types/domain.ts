@@ -19,7 +19,7 @@ export interface Order {
   length: number
   qty: number
   weight: number
-  definition: '单尺' | '双尺'
+  definition: '单定尺' | '双定尺'
   surface: '普通' | '酸洗'
   urgent: boolean
   priority: Priority

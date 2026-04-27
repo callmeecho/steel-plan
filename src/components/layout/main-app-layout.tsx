@@ -1,14 +1,12 @@
-import '../../v2/app/globals.css'
+import { redirect } from 'next/navigation'
+
+import { createClient } from '@/lib/supabase/server'
 import { Sidebar } from '@v2/components/layout/Sidebar'
 import { getLatestTaskSnapshot } from '@v2/lib/task-snapshot-store'
-import { createClient } from '../../lib/supabase/server'
-import { redirect } from 'next/navigation'
 
 function getUserInitials(name: string) {
   const trimmed = name.trim()
-  if (!trimmed) {
-    return 'U'
-  }
+  if (!trimmed) return 'U'
 
   const parts = trimmed
     .split(/[\s@._-]+/)
@@ -19,11 +17,10 @@ function getUserInitials(name: string) {
     return `${parts[0][0]}${parts[1][0]}`.toUpperCase()
   }
 
-  const lettersOnly = trimmed.replace(/\s+/g, '')
-  return lettersOnly.slice(0, 2).toUpperCase()
+  return trimmed.replace(/\s+/g, '').slice(0, 2).toUpperCase()
 }
 
-export default async function V2Layout({
+export default async function MainAppLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
@@ -50,14 +47,14 @@ export default async function V2Layout({
 
   return (
     <div className="min-h-screen bg-[#f3f6fb] text-ink">
-      <div className="grid min-h-screen grid-cols-[272px_1fr]">
+      <div className="fixed top-0 left-0 z-30">
         <Sidebar
           userName={userName}
           userInitials={userInitials}
           latestTaskId={latestTask?.id ?? null}
         />
-        <main className="flex min-w-0 flex-col">{children}</main>
       </div>
+      <main className="ml-[272px] flex min-h-screen min-w-0 flex-col">{children}</main>
     </div>
   )
 }

@@ -69,7 +69,7 @@ export default async function PlanPreviewPage({
               </div>
             </div>
             <Link
-              href="/v2/orders"
+              href="/orders"
               className="rounded border border-slate-300 px-3 py-1.5 text-sm text-slate-700 transition hover:bg-slate-50"
             >
               返回 v2

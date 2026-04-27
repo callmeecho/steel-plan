@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useTransition } from 'react'
+import { useMemo, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { Play } from 'lucide-react'
+import { Loader2, Play } from 'lucide-react'
 
 import { Topbar } from '../../components/layout/Topbar'
 import { HintTip } from '../../components/ui/HintTip'
@@ -13,33 +13,38 @@ const RULE_OPTIONS = [
   {
     key: 'preferLargeSection',
     title: '优先大断面',
-    hint:
-      '当订单宽度较大时，优先采用更大的可用断面，减少板坯切换并为拼板组合预留空间。',
+    hint: '优先选择更大的断面组合，减少切换与组坯约束冲突。',
   },
   {
     key: 'allowNonStandard',
     title: '允许非标断面设计',
-    hint:
-      '允许在已选断面之外补充非标断面方案，用于扩大候选解空间，但仍受现场可生产条件约束。',
+    hint: '在可生产范围内扩展可选断面，增加可行解空间。',
   },
   {
     key: 'allowLongSlab',
-    title: '是否长坏料',
-    hint:
-      '允许长板坯相关方案进入本次候选集，用于覆盖特定长度区间下的排产需求。',
+    title: '允许长板坯方案',
+    hint: '允许长板坯方案参与优化，覆盖特定长度订单。',
   },
   {
     key: 'balanceYield',
-    title: '跨钢种组坯',
-    hint:
-      '允许满足规则的跨钢种组合进入排产计算，用于提升成材率和板坯利用率。',
+    title: '允许跨钢种组坯',
+    hint: '在规则允许时进行跨钢种组合，提高整体利用率。',
   },
 ] as const
 
-export function GeneratePageClient() {
+type GeneratePageClientProps = {
+  executionMode: string
+  importedOrderIds: string[]
+}
+
+export function GeneratePageClient({ executionMode: _executionMode, importedOrderIds }: GeneratePageClientProps) {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const orderIds = (searchParams.get('orderIds') ?? '').split(',').filter(Boolean)
+  const orderIdsFromUrl = (searchParams.get('orderIds') ?? '').split(',').filter(Boolean)
+  const orderIds = useMemo(
+    () => (orderIdsFromUrl.length > 0 ? orderIdsFromUrl : importedOrderIds),
+    [orderIdsFromUrl, importedOrderIds],
+  )
 
   const [options, setOptions] = useState({
     preferLargeSection: true,
@@ -48,26 +53,77 @@ export function GeneratePageClient() {
     balanceYield: false,
     respectDueDate: true,
   })
-  const [isPending, startTransition] = useTransition()
+  const [isRunning, setIsRunning] = useState(false)
+  const [showProgress, setShowProgress] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [progressText, setProgressText] = useState('准备任务上下文...')
   const [error, setError] = useState<string | null>(null)
+  const [taskNote, setTaskNote] = useState<string | null>(null)
 
   function toggle(key: keyof typeof options) {
     setOptions((previous) => ({ ...previous, [key]: !previous[key] }))
   }
 
-  function handleCreateTask() {
-    if (orderIds.length === 0 || isPending) return
+  async function handleCreateTask() {
+    if (orderIds.length === 0 || isRunning) return
 
     setError(null)
-    startTransition(async () => {
+    setTaskNote(null)
+    setIsRunning(true)
+    setShowProgress(true)
+    setProgress(8)
+    setProgressText('准备任务上下文...')
+
+    const stageTexts = [
+      '校验断面与厚度规则...',
+      '筛选可参与排产订单...',
+      '生成优化输入数据...',
+      '执行方案计算...',
+      '写入方案结果...',
+    ]
+    let stageIndex = 0
+    const beginTs = Date.now()
+    const MIN_PROGRESS_MS = 2600
+
+    const timer = window.setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 92) return 92
+        const next = Math.min(prev + Math.max(1, Math.round((100 - prev) / 10)), 92)
+        if (next >= 20 + stageIndex * 15 && stageIndex < stageTexts.length - 1) {
+          stageIndex += 1
+          setProgressText(stageTexts[stageIndex])
+        }
+        return next
+      })
+    }, 280)
+
+    try {
       const result = await createV2Task({ orderIds, options })
+      const elapsed = Date.now() - beginTs
+      if (elapsed < MIN_PROGRESS_MS) {
+        await new Promise((resolve) => setTimeout(resolve, MIN_PROGRESS_MS - elapsed))
+      }
+
       if (!result.success) {
-        setError('任务创建失败，请稍后重试。')
+        setError(result.error || '任务创建失败，请稍后重试。')
+        setProgress(0)
+        setShowProgress(false)
         return
       }
 
-      router.push(`/v2/plans?taskId=${result.taskId}&tab=results`)
-    })
+      if ('filteredOutCount' in result && result.filteredOutCount > 0) {
+        setTaskNote(`已按断面/厚度规则过滤 ${result.filteredOutCount} 条不匹配订单。`)
+      }
+
+      setProgressText('计算完成，正在跳转结果页...')
+      setProgress(100)
+      await new Promise((resolve) => setTimeout(resolve, 380))
+      router.push(`/plans?taskId=${result.taskId}&tab=results`)
+    } finally {
+      window.clearInterval(timer)
+      setIsRunning(false)
+      setTimeout(() => setShowProgress(false), 400)
+    }
   }
 
   return (
@@ -96,34 +152,49 @@ export function GeneratePageClient() {
 
             <div className="space-y-4">
               <div className="rounded-xl border border-edge bg-white p-5">
-                <div className="grid gap-4">
-                  <div>
-                    <div className="text-[12px] text-ink-tertiary">已选订单</div>
-                    <div className="mt-2 font-mono text-[28px] font-semibold text-ink">
-                      {orderIds.length}
-                    </div>
-                  </div>
-                </div>
+                <div className="text-[12px] text-ink-tertiary">已导入订单</div>
+                <div className="mt-2 font-mono text-[28px] font-semibold text-ink">{orderIds.length}</div>
               </div>
 
-              {error ? <div className="text-[12px] text-rose-600">{error}</div> : null}
+              {error ? <div className="text-[12px] whitespace-pre-line text-rose-600">{error}</div> : null}
+              {taskNote ? <div className="text-[12px] whitespace-pre-line text-amber-700">{taskNote}</div> : null}
 
-              <div className="flex items-center justify-end gap-3">
-                <Btn size="sm">保存为规则模板</Btn>
+              <div className="flex items-center justify-end">
                 <Btn
                   size="sm"
                   variant="primary"
-                  disabled={orderIds.length === 0 || isPending}
-                  onClick={handleCreateTask}
+                  disabled={orderIds.length === 0 || isRunning}
+                  onClick={() => {
+                    void handleCreateTask()
+                  }}
                 >
                   <Play className="h-3 w-3" />
-                  {isPending ? '正在创建任务...' : '开始排产'}
+                  {isRunning ? '正在计算...' : '开始排产'}
                 </Btn>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {showProgress ? (
+        <div className="fixed inset-0 z-[90] grid place-items-center bg-[#0f172a]/35 p-4">
+          <div className="w-full max-w-[460px] rounded-xl border border-edge bg-white p-5 shadow-[0_20px_60px_rgba(15,23,42,0.3)]">
+            <div className="mb-3 flex items-center gap-2 text-[16px] font-semibold text-ink">
+              <Loader2 className="h-4 w-4 animate-spin text-accent" />
+              正在计算排产方案
+            </div>
+            <div className="mb-2 text-[12px] text-ink-secondary">{progressText}</div>
+            <div className="h-2 overflow-hidden rounded-full bg-surface-subtle">
+              <div
+                className="h-full rounded-full bg-accent transition-all duration-300"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+            <div className="mt-2 text-right font-mono text-[11px] text-ink-tertiary">{progress}%</div>
+          </div>
+        </div>
+      ) : null}
     </>
   )
 }

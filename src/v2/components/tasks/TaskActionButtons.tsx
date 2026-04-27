@@ -9,9 +9,16 @@ type TaskActionButtonsProps = {
   sourceDir: string | null
 }
 
-export function TaskActionButtons({ taskId: _taskId, sourceDir: _sourceDir }: TaskActionButtonsProps) {
+export function TaskActionButtons({
+  taskId: _taskId,
+  sourceDir: _sourceDir,
+}: TaskActionButtonsProps) {
   function handleRefresh() {
     window.location.reload()
+  }
+
+  function handleDownload() {
+    window.location.href = '/api/result-download'
   }
 
   return (
@@ -19,12 +26,9 @@ export function TaskActionButtons({ taskId: _taskId, sourceDir: _sourceDir }: Ta
       <Btn size="sm" onClick={handleRefresh}>
         <RefreshCw className="h-3 w-3" /> 刷新结果
       </Btn>
-      <a
-        href="/api/result-download"
-        className="inline-flex h-8 items-center justify-center gap-1 rounded-md border border-edge-strong bg-white px-3 text-[11.5px] font-medium text-ink transition hover:bg-surface-hover"
-      >
+      <Btn size="sm" onClick={handleDownload}>
         <Download className="h-3 w-3" /> 下载结果
-      </a>
+      </Btn>
     </div>
   )
 }

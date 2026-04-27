@@ -1,11 +1,13 @@
-import fs from 'node:fs'
+﻿import fs from 'node:fs'
 import path from 'node:path'
 
 import * as XLSX from 'xlsx'
 
 import type { Plan } from '../types/domain'
+import { loadLatestPlanSnapshot, loadPlanSnapshotByTaskId } from './result-store'
 
 const RESULT_DIR_CANDIDATES = [
+  process.env.LEGACY_RESULT_DIR || '',
   'D:\\南京钢铁\\南京钢铁后端\\双定尺模型\\ShuangDingChi_MySQL\\data\\results',
   'D:\\南京钢铁\\南京钢铁后端\\双定尺模型\\ShuangDingChi_MySQL跑不起来\\files',
 ] as const
@@ -66,6 +68,23 @@ export type LoadedPlanSnapshot = {
   results: ResultTableRow[]
   stats: ResultStatsRow[]
   unscheduled: ResultUnscheduledRow[]
+  sourceMeta?: {
+    requestedOrderCount: number
+    effectiveOrderCount: number
+    filteredOutCount: number
+    requestedWeightTons: number
+    effectiveWeightTons: number
+    requestedUniqueGradeCount: number
+    effectiveUniqueGradeCount: number
+  }
+  consistency?: {
+    expectedOrderCount: number
+    actualOrderCount: number
+    missingOrderCount: number
+    extraOrderCount: number
+    coverageRate: number
+    strictMatched: boolean
+  }
 }
 
 export type ResultDownloadTarget = {
@@ -74,10 +93,75 @@ export type ResultDownloadTarget = {
   contentType: string
 }
 
-export async function loadCurrentPlanSnapshot(): Promise<LoadedPlanSnapshot | null> {
+export async function loadCurrentPlanSnapshot(taskId = 'current'): Promise<LoadedPlanSnapshot | null> {
+  if (taskId && taskId !== 'current') {
+    const snapshot = await loadPlanSnapshotByTaskId(taskId)
+    if (snapshot) return snapshot as LoadedPlanSnapshot
+  } else {
+    const latest = await loadLatestPlanSnapshot()
+    if (latest) return latest as LoadedPlanSnapshot
+  }
+
+  const executionMode = (process.env.STEEL_PLAN_EXECUTION_MODE || 'demo').toLowerCase()
+  if (executionMode === 'legacy') {
+    return loadPlanSnapshotFromFiles()
+  }
+
+  return null
+}
+
+export async function loadPlanSnapshotFromFiles(): Promise<LoadedPlanSnapshot | null> {
   const sourceDir = findResultDir()
   if (!sourceDir) return null
 
+  return buildSnapshotFromDir(sourceDir, 'LEGACY-RESULT')
+}
+
+export function getResultDownloadTarget(): ResultDownloadTarget | null {
+  const executionMode = (process.env.STEEL_PLAN_EXECUTION_MODE || 'demo').toLowerCase()
+  if (executionMode !== 'legacy') {
+    return null
+  }
+
+  const sourceDir = findResultDir()
+  if (!sourceDir) return null
+
+  const preferredFiles = [
+    {
+      fileName: 'design_result.xlsx',
+      contentType:
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    },
+    {
+      fileName: 'remain_orders.xlsx',
+      contentType:
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    },
+  ]
+
+  for (const file of preferredFiles) {
+    const filePath = path.join(sourceDir, file.fileName)
+    if (fs.existsSync(filePath)) {
+      return {
+        filePath,
+        fileName: file.fileName,
+        contentType: file.contentType,
+      }
+    }
+  }
+
+  return null
+}
+
+function findResultDir() {
+  return (
+    RESULT_DIR_CANDIDATES.find(
+      (candidate) => candidate && fs.existsSync(path.join(candidate, 'design_result.xlsx')),
+    ) ?? null
+  )
+}
+
+function buildSnapshotFromDir(sourceDir: string, taskId: string): LoadedPlanSnapshot | null {
   const designRows = readSheet(path.join(sourceDir, 'design_result.xlsx'))
   if (designRows.length === 0) return null
 
@@ -87,13 +171,15 @@ export async function loadCurrentPlanSnapshot(): Promise<LoadedPlanSnapshot | nu
   const slabs = designRows.map((row, index) => mapDesignRowToSlab(row, index))
   const slabWeight = slabs.reduce((sum, slab) => sum + slab.slabWeightEstimate, 0)
   const steelWeight = slabs.reduce((sum, slab) => sum + slab.slabWeightEstimate * slab.yieldRate, 0)
+  const avgYield =
+    slabs.length > 0 ? slabs.reduce((sum, slab) => sum + slab.yieldRate, 0) / slabs.length : 0
   const allScheduledOrders = new Set(slabs.flatMap((slab) => slab.segments.map((segment) => segment.orderId)))
   const unscheduled = remainRows.map(mapRemainRow).filter((item) => item.orderId)
   const unscheduledOrderIds = unscheduled.map((item) => item.orderId)
 
   const plan: Plan = {
     id: 'REAL-CURRENT',
-    taskId: 'LEGACY-RESULT',
+    taskId,
     name: '当前算法结果',
     strategy: '读取旧系统最新排产输出',
     params: {
@@ -104,7 +190,7 @@ export async function loadCurrentPlanSnapshot(): Promise<LoadedPlanSnapshot | nu
       respectDueDate: true,
     },
     kpi: {
-      avgYield: slabWeight > 0 ? steelWeight / slabWeight : 0,
+      avgYield,
       steelWeight,
       slabWeight,
       slabCount: slabs.length,
@@ -142,43 +228,6 @@ export async function loadCurrentPlanSnapshot(): Promise<LoadedPlanSnapshot | nu
     stats: buildStats(slabs),
     unscheduled,
   }
-}
-
-export function getResultDownloadTarget(): ResultDownloadTarget | null {
-  const sourceDir = findResultDir()
-  if (!sourceDir) return null
-
-  const preferredFiles = [
-    {
-      fileName: 'design_result.xlsx',
-      contentType:
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    },
-    {
-      fileName: 'remain_orders.xlsx',
-      contentType:
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    },
-  ]
-
-  for (const file of preferredFiles) {
-    const filePath = path.join(sourceDir, file.fileName)
-    if (fs.existsSync(filePath)) {
-      return {
-        filePath,
-        fileName: file.fileName,
-        contentType: file.contentType,
-      }
-    }
-  }
-
-  return null
-}
-
-function findResultDir() {
-  return RESULT_DIR_CANDIDATES.find((candidate) =>
-    fs.existsSync(path.join(candidate, 'design_result.xlsx')),
-  ) ?? null
 }
 
 function readSheet(filePath: string) {
@@ -234,7 +283,7 @@ function mapDesignRowToSlab(row: SheetRow, index: number) {
     rollThickness: toNumber(row.ROLL_THK),
     rollWidth: toNumber(row.ROLL_WIDTH),
     rollLength,
-    yieldRate: toNumber(row.EFFICIENCY),
+    yieldRate: normalizeYieldRate(row.EFFICIENCY),
     segments: segments.map((segment) => ({
       orderId: segment.orderId,
       thickness: segment.thickness,
@@ -244,6 +293,13 @@ function mapDesignRowToSlab(row: SheetRow, index: number) {
       color: segment.color,
     })),
   }
+}
+
+function normalizeYieldRate(value: unknown) {
+  const raw = toNumber(value)
+  if (raw <= 0) return 0
+  if (raw > 1 && raw <= 100) return Math.min(raw / 100, 1)
+  return Math.min(raw, 1)
 }
 
 function readExtraSegments(row: SheetRow) {
@@ -366,3 +422,4 @@ function toNumber(value: unknown) {
   const parsed = Number(value)
   return Number.isFinite(parsed) ? parsed : 0
 }
+

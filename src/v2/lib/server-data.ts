@@ -118,6 +118,33 @@ export async function loadV2Orders() {
   return MOCK_ORDERS
 }
 
+export async function loadV2OrderGradeOptions() {
+  const supabase = await createClient()
+  const gradeSet = new Set<string>()
+
+  const { data: steelGrades } = await withTimeout(
+    Promise.resolve(
+      supabase.from('steel_grades').select('standard_steel').is('archived_at', null).limit(10000),
+    ),
+    { data: null, error: null } as any,
+  )
+
+  if (steelGrades && Array.isArray(steelGrades)) {
+    for (const row of steelGrades as Array<{ standard_steel?: string | null }>) {
+      const value = String(row.standard_steel || '').trim()
+      if (value) gradeSet.add(value)
+    }
+  }
+
+  const legacyRows = await withTimeout(loadLegacyOrders(supabase), [] as LegacyOrderRow[])
+  for (const row of legacyRows) {
+    const value = String(row.steeltype || '').trim()
+    if (value) gradeSet.add(value)
+  }
+
+  return Array.from(gradeSet).sort((a, b) => a.localeCompare(b, 'zh-CN'))
+}
+
 export async function loadV2SectionRows() {
   const supabase = await createClient()
   const result = await withTimeout(
@@ -218,6 +245,21 @@ function withTimeout<T>(promise: Promise<T>, fallback: T) {
 }
 
 function findFirstMatchingFile(fileName: string) {
+  {
+    const preferredRoots = [
+      'D:\\南京钢铁\\南京钢铁后端\\双定尺模型\\ShuangDingChi_MySQL',
+      'D:\\南京钢铁\\南京钢铁后端\\双定尺模型\\ShuangDingChi_MySQL跑不起来',
+      'D:\\南京钢铁\\南京钢铁后端\\双定尺模型\\ShuangDingChi_MySQL2',
+    ] as const
+
+    for (const root of preferredRoots) {
+      const found = walkForFile(root, fileName)
+      if (found) return found
+    }
+
+    return null
+  }
+
   const preferredRoots = [
     'D:\\南京钢铁\\南京钢铁后端\\双定尺模型\\ShuangDingChi_MySQL',
     'D:\\南京钢铁\\南京钢铁后端\\双定尺模型\\ShuangDingChi_MySQL跑不起来',
@@ -276,7 +318,7 @@ function mapLegacyOrder(row: LegacyOrderRow): V2Order {
     length: parseMaybeNumber(row.length) ?? 0,
     qty: parseMaybeNumber(row.amount) ?? 0,
     weight: parseMaybeNumber(row.weight) ?? 0,
-    definition: sizeType.includes('双') ? '双尺' : '单尺',
+    definition: normalizeDefinition(sizeType),
     surface: '普通',
     urgent: false,
     priority: '中',
@@ -308,7 +350,7 @@ function mapLocalOrderRow(row: LocalOrderSheetRow): V2Order {
     length: parseMaybeNumber(row.PLATE_LEN) ?? 0,
     qty: parseMaybeNumber(row.PLATE_NUM) ?? 0,
     weight: parseMaybeNumber(row.ORD_WGT) ?? 0,
-    definition: constraint.includes('双') ? '双尺' : '单尺',
+    definition: normalizeDefinition(constraint),
     surface: String(row.SURFACE_C || '0') === '1' ? '酸洗' : '普通',
     urgent: Boolean(urgentFlag),
     priority: urgentFlag ? '高' : '中',
@@ -332,4 +374,27 @@ function parseMaybeNumber(value: string | number | null | undefined): number | n
   if (value === null || value === undefined || value === '') return null
   const parsed = Number(value)
   return Number.isFinite(parsed) ? parsed : null
+}
+
+function normalizeDefinition(source: string) {
+  const normalized = String(source || '').trim().toLowerCase()
+
+  if (
+    normalized.includes('双') ||
+    normalized.includes('雙') ||
+    normalized.includes('double') ||
+    normalized.includes('dual')
+  ) {
+    return '双定尺' as const
+  }
+
+  if (
+    normalized.includes('单') ||
+    normalized.includes('單') ||
+    normalized.includes('single')
+  ) {
+    return '单定尺' as const
+  }
+
+  return '单定尺' as const
 }

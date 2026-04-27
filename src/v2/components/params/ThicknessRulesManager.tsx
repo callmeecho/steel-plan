@@ -71,6 +71,8 @@ export function ThicknessRulesManager({ rows }: { rows: V2ThicknessRuleRow[] }) 
           createLabel="新增规则"
           importLabel="导入厚度规则"
           exportLabel="导出厚度规则"
+          showImport={false}
+          showExport={false}
           onCreate={() => {
             setError(null)
             setCreateOpen(true)
@@ -132,7 +134,11 @@ export function ThicknessRulesManager({ rows }: { rows: V2ThicknessRuleRow[] }) 
           <ParamField label="钢板厚度上限" name="plateMax" step="0.01" />
           <ParamField label="板坯厚度下限" name="slabMin" step="0.01" />
           <ParamField label="板坯厚度上限" name="slabMax" step="0.01" />
-          {error ? <div className="rounded-lg border border-danger/20 bg-danger/5 px-3 py-2 text-[12px] text-danger">{error}</div> : null}
+          {error ? (
+            <div className="rounded-lg border border-danger/20 bg-danger/5 px-3 py-2 text-[12px] text-danger">
+              {error}
+            </div>
+          ) : null}
           <ParamDialogActions loading={isPending} onClose={() => setCreateOpen(false)} submitLabel="创建规则" />
         </form>
       </ParamDialog>
@@ -143,10 +149,15 @@ export function ThicknessRulesManager({ rows }: { rows: V2ThicknessRuleRow[] }) 
           <ParamField label="钢板厚度上限" name="plateMax" step="0.01" defaultValue={editing?.plateMax ?? ''} />
           <ParamField label="板坯厚度下限" name="slabMin" step="0.01" defaultValue={editing?.slabMin ?? ''} />
           <ParamField label="板坯厚度上限" name="slabMax" step="0.01" defaultValue={editing?.slabMax ?? ''} />
-          {error ? <div className="rounded-lg border border-danger/20 bg-danger/5 px-3 py-2 text-[12px] text-danger">{error}</div> : null}
+          {error ? (
+            <div className="rounded-lg border border-danger/20 bg-danger/5 px-3 py-2 text-[12px] text-danger">
+              {error}
+            </div>
+          ) : null}
           <ParamDialogActions loading={isPending} onClose={() => setEditing(null)} submitLabel="保存修改" />
         </form>
       </ParamDialog>
     </>
   )
 }
+

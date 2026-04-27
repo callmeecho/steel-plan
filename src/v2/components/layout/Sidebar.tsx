@@ -87,7 +87,6 @@ export function Sidebar({ userName, userInitials, latestTaskId }: SidebarProps) 
         children: [
           { label: '优化结果', href: `/plans?taskId=${currentTaskId}&tab=results` },
           { label: '图形展示', href: `/plans?taskId=${currentTaskId}&tab=graph` },
-          { label: '板坯统计', href: `/plans?taskId=${currentTaskId}&tab=stats` },
           { label: '未排订单', href: `/plans?taskId=${currentTaskId}&tab=unscheduled` },
         ],
       },
@@ -96,7 +95,7 @@ export function Sidebar({ userName, userInitials, latestTaskId }: SidebarProps) 
   )
 
   return (
-    <aside className="flex w-[272px] min-w-[272px] flex-col overflow-hidden bg-sidebar text-white">
+    <aside className="flex h-screen w-[272px] min-w-[272px] flex-col overflow-hidden bg-sidebar text-white">
       <div className="border-b border-white/10 px-6 py-5">
         <div className="flex items-center gap-4">
           <BrandMark />

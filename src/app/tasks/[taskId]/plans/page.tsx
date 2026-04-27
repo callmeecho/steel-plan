@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-export default async function V2TaskPlansRedirectPage({
+export default async function TaskPlansRedirectPage({
   params,
   searchParams,
 }: {
@@ -10,5 +10,5 @@ export default async function V2TaskPlansRedirectPage({
   const { taskId } = await params
   const { tab = 'results' } = await searchParams
 
-  redirect(`/v2/plans?taskId=${taskId}&tab=${tab}`)
+  redirect(`/plans?taskId=${taskId}&tab=${tab}`)
 }

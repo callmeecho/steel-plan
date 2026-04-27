@@ -1,4 +1,3 @@
-import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
 function isPublicAsset(pathname: string) {
@@ -18,75 +17,28 @@ function stripV2Prefix(pathname: string) {
   return stripped || '/orders'
 }
 
-function shouldRewriteToV2(pathname: string) {
-  return (
-    pathname === '/orders' ||
-    pathname === '/generate' ||
-    pathname === '/plans' ||
-    pathname.startsWith('/params/') ||
-    /^\/tasks\/[^/]+\/plans$/.test(pathname) ||
-    /^\/tasks\/[^/]+\/compare$/.test(pathname)
-  )
-}
-
-function applySessionCookies(target: NextResponse, source: NextResponse) {
-  source.cookies.getAll().forEach((cookie) => {
-    target.cookies.set(cookie)
-  })
-  return target
-}
-
-export async function proxy(request: NextRequest) {
-  let supabaseResponse = NextResponse.next({ request })
-
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
-          supabaseResponse = NextResponse.next({ request })
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options),
-          )
-        },
-      },
-    },
-  )
-
-  await supabase.auth.getUser()
-
+export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl
 
   if (isPublicAsset(pathname)) {
-    return supabaseResponse
+    return NextResponse.next({ request })
   }
 
   if (pathname === '/') {
     const target = request.nextUrl.clone()
     target.pathname = '/orders'
     target.search = search
-    return applySessionCookies(NextResponse.redirect(target), supabaseResponse)
+    return NextResponse.redirect(target)
   }
 
   if (pathname === '/v2' || pathname.startsWith('/v2/')) {
     const target = request.nextUrl.clone()
     target.pathname = stripV2Prefix(pathname)
     target.search = search
-    return applySessionCookies(NextResponse.redirect(target), supabaseResponse)
+    return NextResponse.redirect(target)
   }
 
-  if (shouldRewriteToV2(pathname)) {
-    const rewriteUrl = request.nextUrl.clone()
-    rewriteUrl.pathname = `/v2${pathname}`
-    return applySessionCookies(NextResponse.rewrite(rewriteUrl), supabaseResponse)
-  }
-
-  return supabaseResponse
+  return NextResponse.next({ request })
 }
 
 export const config = {

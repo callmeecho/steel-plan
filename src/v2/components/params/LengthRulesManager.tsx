@@ -75,6 +75,8 @@ export function LengthRulesManager({ rows }: { rows: V2LengthRuleRow[] }) {
           createLabel="新增标准"
           importLabel="导入长度规则"
           exportLabel="导出长度规则"
+          showImport={false}
+          showExport={false}
           onCreate={() => {
             setError(null)
             setCreateOpen(true)
@@ -149,7 +151,11 @@ export function LengthRulesManager({ rows }: { rows: V2LengthRuleRow[] }) {
           <ParamField label="板坯厚度下限" name="slabThicknessMin" />
           <ParamField label="板坯厚度上限" name="slabThicknessMax" />
           <div className="col-span-2">
-            {error ? <div className="rounded-lg border border-danger/20 bg-danger/5 px-3 py-2 text-[12px] text-danger">{error}</div> : null}
+            {error ? (
+              <div className="rounded-lg border border-danger/20 bg-danger/5 px-3 py-2 text-[12px] text-danger">
+                {error}
+              </div>
+            ) : null}
           </div>
           <div className="col-span-2">
             <ParamDialogActions loading={isPending} onClose={() => setCreateOpen(false)} submitLabel="创建标准" />
@@ -165,10 +171,22 @@ export function LengthRulesManager({ rows }: { rows: V2LengthRuleRow[] }) {
           <ParamField label="全纵板坯长度上限" name="fullMax" defaultValue={editing?.fullMax ?? ''} />
           <ParamField label="长坏料长度下限" name="shortMin" defaultValue={editing?.shortMin ?? ''} />
           <ParamField label="长坏料长度上限" name="shortMax" defaultValue={editing?.shortMax ?? ''} />
-          <ParamField label="板坯厚度下限" name="slabThicknessMin" defaultValue={editing?.slabThicknessMin ?? ''} />
-          <ParamField label="板坯厚度上限" name="slabThicknessMax" defaultValue={editing?.slabThicknessMax ?? ''} />
+          <ParamField
+            label="板坯厚度下限"
+            name="slabThicknessMin"
+            defaultValue={editing?.slabThicknessMin ?? ''}
+          />
+          <ParamField
+            label="板坯厚度上限"
+            name="slabThicknessMax"
+            defaultValue={editing?.slabThicknessMax ?? ''}
+          />
           <div className="col-span-2">
-            {error ? <div className="rounded-lg border border-danger/20 bg-danger/5 px-3 py-2 text-[12px] text-danger">{error}</div> : null}
+            {error ? (
+              <div className="rounded-lg border border-danger/20 bg-danger/5 px-3 py-2 text-[12px] text-danger">
+                {error}
+              </div>
+            ) : null}
           </div>
           <div className="col-span-2">
             <ParamDialogActions loading={isPending} onClose={() => setEditing(null)} submitLabel="保存修改" />
@@ -178,3 +196,4 @@ export function LengthRulesManager({ rows }: { rows: V2LengthRuleRow[] }) {
     </>
   )
 }
+

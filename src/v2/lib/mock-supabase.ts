@@ -74,7 +74,7 @@ function makeOrder(index: number): Order {
     length,
     qty,
     weight,
-    definition: pickWeighted(['双尺', '单尺'], [7, 3]),
+    definition: pickWeighted(['双定尺', '单定尺'], [7, 3]),
     surface: rand() < 0.25 ? '酸洗' : '普通',
     urgent: rand() < 0.12,
     priority: pickWeighted(['急', '高', '中', '低'], [1, 2, 5, 2]),

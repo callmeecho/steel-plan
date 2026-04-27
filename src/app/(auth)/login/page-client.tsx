@@ -27,13 +27,12 @@ export default function LoginPageClient({ next }: { next: string }) {
   }
 
   return (
-    <div className="rounded-2xl border border-slate-200/90 bg-white/95 p-8 shadow-[0_20px_60px_-28px_rgba(15,23,42,0.4)] backdrop-blur">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight text-slate-900">登录</h1>
-        <p className="mt-2 text-sm text-slate-600">使用你的账号进入系统。</p>
+    <div className="rounded-2xl border border-slate-200/90 bg-white/95 p-10 shadow-[0_24px_72px_-30px_rgba(15,23,42,0.42)] backdrop-blur sm:p-12">
+      <div className="mb-8">
+        <h1 className="text-4xl font-bold tracking-tight text-slate-900">登录</h1>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-5">
         <input type="hidden" name="next" value={next} />
         <Input
           label="邮箱"
@@ -63,7 +62,7 @@ export default function LoginPageClient({ next }: { next: string }) {
         </Button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-slate-600">
+      <p className="mt-8 text-center text-base text-slate-600">
         还没有账号？
         <Link
           href={next === '/' ? '/signup' : `/signup?next=${encodeURIComponent(next)}`}

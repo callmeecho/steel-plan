@@ -1,0 +1,352 @@
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 172.64.149.246:443, 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 172.64.149.246:443, 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 172.64.149.246:443, 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 172.64.149.246:443, 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 172.64.149.246:443, 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+TypeError: fetch failed
+    at async sQ (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39700)
+    at async sY (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:41:39228)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14222)
+    at async iT._useSession (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11740)
+    at async iT._getUser (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:14059)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:13853)
+    at async (C:\Users\lihon\projects\steel-plan\.next\server\chunks\[root-of-the-server]__0zlb0p2._.js:54:11020) {
+  [cause]: Error [ConnectTimeoutError]: Connect Timeout Error (attempted addresses: 104.18.38.10:443, timeout: 10000ms)
+      at ignore-listed frames {
+    code: 'UND_ERR_CONNECT_TIMEOUT'
+  }
+}
+Error [ChunkLoadError]: Failed to load chunk server/chunks/ssr/_0tpljde._.js from module 56905
+    at Context.loadChunkAsync [as l] (C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\[turbopack]_runtime.js:766:27) {
+  [cause]: Error: Cannot find module 'C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\_0tpljde._.js'
+  Require stack:
+  - C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\[turbopack]_runtime.js
+  - C:\Users\lihon\projects\steel-plan\.next\server\app\(auth)\login\page.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\require.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\next-server.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\next.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\lib\start-server.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\cli\next-start.js
+      at ignore-listed frames {
+    code: 'MODULE_NOT_FOUND',
+    requireStack: [
+      'C:\\Users\\lihon\\projects\\steel-plan\\.next\\server\\chunks\\ssr\\[turbopack]_runtime.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\.next\\server\\app\\(auth)\\login\\page.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\require.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\next-server.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\next.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\lib\\start-server.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\cli\\next-start.js'
+    ]
+  }
+}
+⨯ unhandledRejection:  Error [ChunkLoadError]: Failed to load chunk server/chunks/ssr/_0tpljde._.js from module 56905
+    at Context.loadChunkAsync [as l] (C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\[turbopack]_runtime.js:766:27) {
+  [cause]: Error: Cannot find module 'C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\_0tpljde._.js'
+  Require stack:
+  - C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\[turbopack]_runtime.js
+  - C:\Users\lihon\projects\steel-plan\.next\server\app\(auth)\login\page.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\require.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\next-server.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\next.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\lib\start-server.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\cli\next-start.js
+      at ignore-listed frames {
+    code: 'MODULE_NOT_FOUND',
+    requireStack: [
+      'C:\\Users\\lihon\\projects\\steel-plan\\.next\\server\\chunks\\ssr\\[turbopack]_runtime.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\.next\\server\\app\\(auth)\\login\\page.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\require.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\next-server.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\next.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\lib\\start-server.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\cli\\next-start.js'
+    ]
+  }
+}
+Error [ChunkLoadError]: Failed to load chunk server/chunks/ssr/_0tpljde._.js from module 56905
+    at Context.loadChunkAsync [as l] (C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\[turbopack]_runtime.js:766:27) {
+  [cause]: Error: Cannot find module 'C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\_0tpljde._.js'
+  Require stack:
+  - C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\[turbopack]_runtime.js
+  - C:\Users\lihon\projects\steel-plan\.next\server\app\(auth)\login\page.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\require.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\next-server.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\next.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\lib\start-server.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\cli\next-start.js
+      at ignore-listed frames {
+    code: 'MODULE_NOT_FOUND',
+    requireStack: [
+      'C:\\Users\\lihon\\projects\\steel-plan\\.next\\server\\chunks\\ssr\\[turbopack]_runtime.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\.next\\server\\app\\(auth)\\login\\page.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\require.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\next-server.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\next.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\lib\\start-server.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\cli\\next-start.js'
+    ]
+  }
+}
+⨯ unhandledRejection:  Error [ChunkLoadError]: Failed to load chunk server/chunks/ssr/_0tpljde._.js from module 56905
+    at Context.loadChunkAsync [as l] (C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\[turbopack]_runtime.js:766:27) {
+  [cause]: Error: Cannot find module 'C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\_0tpljde._.js'
+  Require stack:
+  - C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\[turbopack]_runtime.js
+  - C:\Users\lihon\projects\steel-plan\.next\server\app\(auth)\login\page.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\require.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\next-server.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\next.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\lib\start-server.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\cli\next-start.js
+      at ignore-listed frames {
+    code: 'MODULE_NOT_FOUND',
+    requireStack: [
+      'C:\\Users\\lihon\\projects\\steel-plan\\.next\\server\\chunks\\ssr\\[turbopack]_runtime.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\.next\\server\\app\\(auth)\\login\\page.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\require.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\next-server.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\next.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\lib\\start-server.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\cli\\next-start.js'
+    ]
+  }
+}
+Error [ChunkLoadError]: Failed to load chunk server/chunks/ssr/_0tpljde._.js from module 56905
+    at Context.loadChunkAsync [as l] (C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\[turbopack]_runtime.js:766:27) {
+  [cause]: Error: Cannot find module 'C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\_0tpljde._.js'
+  Require stack:
+  - C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\[turbopack]_runtime.js
+  - C:\Users\lihon\projects\steel-plan\.next\server\app\(auth)\login\page.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\require.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\next-server.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\next.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\lib\start-server.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\cli\next-start.js
+      at ignore-listed frames {
+    code: 'MODULE_NOT_FOUND',
+    requireStack: [
+      'C:\\Users\\lihon\\projects\\steel-plan\\.next\\server\\chunks\\ssr\\[turbopack]_runtime.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\.next\\server\\app\\(auth)\\login\\page.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\require.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\next-server.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\next.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\lib\\start-server.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\cli\\next-start.js'
+    ]
+  }
+}
+⨯ unhandledRejection:  Error [ChunkLoadError]: Failed to load chunk server/chunks/ssr/_0tpljde._.js from module 56905
+    at Context.loadChunkAsync [as l] (C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\[turbopack]_runtime.js:766:27) {
+  [cause]: Error: Cannot find module 'C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\_0tpljde._.js'
+  Require stack:
+  - C:\Users\lihon\projects\steel-plan\.next\server\chunks\ssr\[turbopack]_runtime.js
+  - C:\Users\lihon\projects\steel-plan\.next\server\app\(auth)\login\page.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\require.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\next-server.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\next.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\server\lib\start-server.js
+  - C:\Users\lihon\projects\steel-plan\node_modules\next\dist\cli\next-start.js
+      at ignore-listed frames {
+    code: 'MODULE_NOT_FOUND',
+    requireStack: [
+      'C:\\Users\\lihon\\projects\\steel-plan\\.next\\server\\chunks\\ssr\\[turbopack]_runtime.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\.next\\server\\app\\(auth)\\login\\page.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\require.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\next-server.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\next.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\server\\lib\\start-server.js',
+      'C:\\Users\\lihon\\projects\\steel-plan\\node_modules\\next\\dist\\cli\\next-start.js'
+    ]
+  }
+}

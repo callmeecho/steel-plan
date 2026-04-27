@@ -23,9 +23,9 @@ function permissionError(action: string) {
 }
 
 function revalidateParamPages() {
-  revalidatePath('/v2/params/section')
-  revalidatePath('/v2/params/thickness')
-  revalidatePath('/v2/params/length')
+  revalidatePath('/params/section')
+  revalidatePath('/params/thickness')
+  revalidatePath('/params/length')
 }
 
 export async function createSectionRule(formData: FormData) {
@@ -95,6 +95,34 @@ export async function toggleSectionRule(id: number, enabled: boolean) {
 
   revalidateParamPages()
   return { success: true }
+}
+
+export async function applySectionSelections(selectedIds: number[]) {
+  const normalizedIds = Array.from(
+    new Set(selectedIds.filter((item) => Number.isFinite(item) && item > 0).map((item) => Math.floor(item))),
+  )
+
+  const supabase = await createClient()
+  const resetResult = await supabase.from('duanmian1').update({ isselected: 0 }).neq('selectednumber', 0)
+  if (resetResult.error) {
+    if (resetResult.error.code === '42501') return permissionError('导入')
+    return { error: resetResult.error.message }
+  }
+
+  if (normalizedIds.length > 0) {
+    const enableResult = await supabase
+      .from('duanmian1')
+      .update({ isselected: 1 })
+      .in('selectednumber', normalizedIds)
+
+    if (enableResult.error) {
+      if (enableResult.error.code === '42501') return permissionError('导入')
+      return { error: enableResult.error.message }
+    }
+  }
+
+  revalidateParamPages()
+  return { success: true, appliedCount: normalizedIds.length }
 }
 
 export async function deleteSectionRule(id: number) {

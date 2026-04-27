@@ -29,8 +29,7 @@ export default function SignupPage() {
   return (
     <div className="rounded-lg border border-gray-200 bg-white p-8 shadow-sm">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">注册账号</h1>
-        <p className="mt-1 text-sm text-gray-600">先填写基本信息，再创建你的系统账号。</p>
+        <h1 className="text-2xl font-bold text-gray-900">注册</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
