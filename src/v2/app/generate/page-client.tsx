@@ -59,6 +59,7 @@ export function GeneratePageClient({ executionMode: _executionMode, importedOrde
   const [progressText, setProgressText] = useState('准备任务上下文...')
   const [error, setError] = useState<string | null>(null)
   const [taskNote, setTaskNote] = useState<string | null>(null)
+  const [successNote, setSuccessNote] = useState<string | null>(null)
 
   function toggle(key: keyof typeof options) {
     setOptions((previous) => ({ ...previous, [key]: !previous[key] }))
@@ -69,6 +70,7 @@ export function GeneratePageClient({ executionMode: _executionMode, importedOrde
 
     setError(null)
     setTaskNote(null)
+    setSuccessNote(null)
     setIsRunning(true)
     setShowProgress(true)
     setProgress(8)
@@ -116,8 +118,9 @@ export function GeneratePageClient({ executionMode: _executionMode, importedOrde
       }
 
       setProgressText('计算完成，正在跳转结果页...')
+      setSuccessNote('排产成功，正在跳转结果页...')
       setProgress(100)
-      await new Promise((resolve) => setTimeout(resolve, 380))
+      await new Promise((resolve) => setTimeout(resolve, 650))
       router.push(`/plans?taskId=${result.taskId}&tab=results`)
     } finally {
       window.clearInterval(timer)
@@ -192,6 +195,14 @@ export function GeneratePageClient({ executionMode: _executionMode, importedOrde
               />
             </div>
             <div className="mt-2 text-right font-mono text-[11px] text-ink-tertiary">{progress}%</div>
+          </div>
+        </div>
+      ) : null}
+
+      {successNote ? (
+        <div className="pointer-events-none fixed top-4 left-1/2 z-[95] -translate-x-1/2">
+          <div className="rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-2 text-[13px] font-medium text-emerald-700 shadow-sm">
+            {successNote}
           </div>
         </div>
       ) : null}
