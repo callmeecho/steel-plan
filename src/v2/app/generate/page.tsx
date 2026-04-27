@@ -1,7 +1,6 @@
 import { Suspense } from 'react'
 
 import { createClient } from '@/lib/supabase/server'
-import { getImportedOrders } from '../../lib/imported-orders-store'
 
 import { GeneratePageClient } from './page-client'
 
@@ -14,7 +13,18 @@ export default async function GeneratePage() {
 
   let importedOrderIds: string[] = []
   if (user) {
-    importedOrderIds = getImportedOrders(user.id)
+    const { data } = await supabase
+      .from('imported_order_selections')
+      .select('order_id')
+      .eq('user_id', user.id)
+
+    importedOrderIds = Array.from(
+      new Set(
+        (data ?? [])
+          .map((item) => String(item.order_id || '').trim())
+          .filter(Boolean),
+      ),
+    )
   }
 
   return (

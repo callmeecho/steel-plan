@@ -3,7 +3,6 @@
 import { revalidatePath } from 'next/cache'
 
 import { createClient } from '@/lib/supabase/server'
-import { setImportedOrders } from '../../lib/imported-orders-store'
 
 function unauthenticatedError() {
   return { error: '登录已失效，请重新登录。' }
@@ -141,10 +140,36 @@ export async function replaceOrderSelections(orderIds: string[]) {
     return unauthenticatedError()
   }
 
-  const inserted = setImportedOrders(user.id, orderIds)
+  const normalizedOrderIds = Array.from(
+    new Set(orderIds.map((item) => String(item || '').trim()).filter(Boolean)),
+  )
+
+  const { error: clearError } = await supabase
+    .from('imported_order_selections')
+    .delete()
+    .eq('user_id', user.id)
+
+  if (clearError) {
+    return { error: clearError.message }
+  }
+
+  if (normalizedOrderIds.length > 0) {
+    const rows = normalizedOrderIds.map((orderId) => ({
+      user_id: user.id,
+      order_id: orderId,
+    }))
+
+    const { error: insertError } = await supabase
+      .from('imported_order_selections')
+      .insert(rows)
+
+    if (insertError) {
+      return { error: insertError.message }
+    }
+  }
 
   revalidatePath('/orders')
   revalidatePath('/planning')
   revalidatePath('/generate')
-  return { success: true, inserted }
+  return { success: true, inserted: normalizedOrderIds.length }
 }
