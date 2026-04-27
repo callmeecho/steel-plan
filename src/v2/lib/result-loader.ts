@@ -14,6 +14,13 @@ const RESULT_DIR_CANDIDATES = [
 
 const SEGMENT_COL_PATTERN = /^data_col_0(\.\d+)?$/
 
+function resolveExecutionMode() {
+  const raw = (process.env.STEEL_PLAN_EXECUTION_MODE || 'demo').toLowerCase()
+  const isVercelRuntime = Boolean(process.env.VERCEL) || Boolean(process.env.VERCEL_ENV)
+  if (isVercelRuntime && raw === 'legacy') return 'demo'
+  return raw
+}
+
 type SheetRow = Record<string, string | number | null | undefined>
 
 type LoadedSegment = {
@@ -102,7 +109,7 @@ export async function loadCurrentPlanSnapshot(taskId = 'current'): Promise<Loade
     if (latest) return latest as LoadedPlanSnapshot
   }
 
-  const executionMode = (process.env.STEEL_PLAN_EXECUTION_MODE || 'demo').toLowerCase()
+  const executionMode = resolveExecutionMode()
   if (executionMode === 'legacy') {
     return loadPlanSnapshotFromFiles()
   }
@@ -118,7 +125,7 @@ export async function loadPlanSnapshotFromFiles(): Promise<LoadedPlanSnapshot | 
 }
 
 export function getResultDownloadTarget(): ResultDownloadTarget | null {
-  const executionMode = (process.env.STEEL_PLAN_EXECUTION_MODE || 'demo').toLowerCase()
+  const executionMode = resolveExecutionMode()
   if (executionMode !== 'legacy') {
     return null
   }

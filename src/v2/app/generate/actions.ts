@@ -22,6 +22,13 @@ type GenerateTaskInput = {
   }
 }
 
+function resolveExecutionMode() {
+  const raw = (process.env.STEEL_PLAN_EXECUTION_MODE || 'demo').toLowerCase()
+  const isVercelRuntime = Boolean(process.env.VERCEL) || Boolean(process.env.VERCEL_ENV)
+  if (isVercelRuntime && raw === 'legacy') return 'demo'
+  return raw
+}
+
 export async function createV2Task(input: GenerateTaskInput) {
   const orders = await loadV2Orders()
   const selectedOrders = orders.filter((order) => input.orderIds.includes(order.id))
@@ -78,7 +85,7 @@ export async function createV2Task(input: GenerateTaskInput) {
     options: input.options,
   })
 
-  const executionMode = (process.env.STEEL_PLAN_EXECUTION_MODE || 'demo').toLowerCase()
+  const executionMode = resolveExecutionMode()
   if (executionMode !== 'legacy') {
     const demoSnapshot = buildDemoPlanSnapshot({
       taskId: snapshot.id,
